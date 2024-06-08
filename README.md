@@ -4,3 +4,13 @@
 - ```npm install express```<br>
 - ```npm i nodemon```<br> <br>
 - To access the server http://localhost:3000
+
+# commit 2
+- Establishing the connection b/w node and mongoose
+- ```npm install mongoose```
+
+# commit 3
+- ```npm install bcypt```<br>
+
+# commit 4
+- ```npm i jsonwebtoken```
