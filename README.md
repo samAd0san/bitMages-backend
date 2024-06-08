@@ -8,3 +8,6 @@
 # commit 2
 - Establishing the connection b/w node and mongoose
 - ```npm install mongoose```
+
+# commit 3
+- ```npm install bcypt```<br>
