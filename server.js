@@ -1,8 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const userRoutes = require('./routes/userRoutes');
 
 const homeRoutes = require('./routes/homeRoutes');
+const userRoutes = require('./routes/userRoutes');
+const tokenAuth = require('./middleware/auth');
 
 const app = express();
 
@@ -19,4 +20,6 @@ const dbConnect = process.env.dbConStr || 'mongodb+srv://admin:admin@samadsclust
 mongoose.connect(dbConnect);
 
 app.use(userRoutes);
-app.use('/',homeRoutes);
+app.use(homeRoutes);
+
+app.use(tokenAuth);

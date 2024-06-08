@@ -11,3 +11,6 @@
 
 # commit 3
 - ```npm install bcypt```<br>
+
+# commit 4
+- ```npm i jsonwebtoken```

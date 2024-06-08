@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
 const UserRepo = require('../repositories/userRepo');
+const config = require('../config/index');
 
 // Helper functions to check for specific error messages
 const emailExists = (err) => err.message && err.message.includes('duplicate key error');
@@ -44,40 +46,39 @@ const signup = async (req, res) => {
     }
 };
 
-const signin = async (req, res) => {
-    try {
+const signin = async(req,res) => {
+    try{
         const payload = req.body;
-        
+        // checking if email entered by the user exists in the db or not
+        const dbUser = await UserRepo.getUserByEmail(payload.email);
+
         // Check if email and password are provided
         if (!payload.password || !payload.email) {
             res.status(400).send('Email and password are required');
             return;
         }
-        
-        // Check if the email exists in the database
-        const dbUser = await UserRepo.getUserByEmail(payload.email);
 
-        if (!dbUser) {
-            // If the email does not exist in the database
+        // If the email entered is incorrect/doesnot exist in the db
+        if(!dbUser) {
             res.status(404).send('Invalid username or password');
             return;
         }
         
-        // Compare the entered password with the hashed password in the database
-        const isValid = await bcrypt.compare(payload.password, dbUser.password);
-        if (isValid) {
-            // If the password is valid, send user details
+        // converting the password to hash then compare the entered password and existing password(inDb)
+        const isValid = await bcrypt.compare(payload.password,dbUser.password);
+        if(isValid) {
             res.status(200).json({
-                firstName: dbUser.firstName,
-                lastName: dbUser.lastName,
+                username: dbUser.username,
+                password: dbUser.password, // optional not required to mention
+                token : jwt.sign({email : dbUser.email},config.jwtSecret,{expiresIn: '1d'})
             });
-        } else {
-            // If the password is invalid
+        }else{
+            // If the password entered is inco  rrect
             res.status(401).send('Invalid username or password');
         }
-    } catch (err) {
-        console.error(err.message);
-        res.status(500).send('Internal Server Error'); // Handle general errors
+    }catch(err){
+        console.log(err);
+        res.status(500).send('Internal Server Error');
     }
 }
 
