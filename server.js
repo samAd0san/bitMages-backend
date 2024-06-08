@@ -2,12 +2,6 @@ const express = require('express');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 require("dotenv").config();
 const cors = require("cors");
-const mongoose = require('mongoose');
-
-const homeRoutes = require('./routes/homeRoutes');
-const userRoutes = require('./routes/userRoutes');
-const tokenAuth = require('./middleware/auth');
-
 const app = express();
 app.use(
     cors({
@@ -20,8 +14,9 @@ app.listen(port,()=>{
     console.log(`The server is running on http://localhost:${port}`);
 });
 
-app.use(express.json());
-// The name of the db is 'bitMages-db'
+function home(req,res) {
+    res.send('Welcome to Express Page');
+}
 
 app.get('/',home);
 
@@ -184,6 +179,16 @@ dietPlan :
   const final = response.text().substring(7,response.text().length-4);
   return JSON.parse(final);
 }
+
+const mongoose = require('mongoose');
+
+const homeRoutes = require('./routes/homeRoutes');
+const userRoutes = require('./routes/userRoutes');
+const tokenAuth = require('./middleware/auth');
+
+
+app.use(express.json());
+// The name of the db is 'bitMages-db'
 
 // mongoose.connect('mongodb://localhost:27017/bitMages-db');
 const dbConnect = process.env.dbConStr || 'mongodb+srv://admin:admin@samadscluster.a4s9jvf.mongodb.net/bitMages-db';
