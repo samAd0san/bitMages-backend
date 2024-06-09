@@ -143,6 +143,7 @@ async function run(userResponse) {
   }
 
   },...
+
   ]
   }
   dietPlan{
@@ -150,7 +151,13 @@ async function run(userResponse) {
   days:[
   {
   day:'Monday'
-  dietPlan : 
+  dietPlan : [
+  {
+  meal: 'Breakfast',
+  foodItems: 'Tuna salad',
+  calories: 300
+  }
+  ]
 
   },...
 
