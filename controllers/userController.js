@@ -13,7 +13,7 @@ async function submitUserResponse(req, res) {
     // Generate a report based on the saved response
     const report = await run(userResponse);
     res.json(report);
-    console.log(report);
+    // console.log(report);
   } catch (error) {
     console.error('Error submitting user response:', error);
     res.status(500).json({ error: 'Internal Server Error' });
