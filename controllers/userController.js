@@ -129,13 +129,14 @@ async function run(userResponse) {
   workoutPlan : [
   {
   workoutType:' Warmup',
+  
   workoutSteps: [
   {
   workoutVariation: 'bench press',
   workoutSets: ''
   }
   ]
-  
+
   }
 
   ]
