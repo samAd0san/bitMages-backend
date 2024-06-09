@@ -30,22 +30,6 @@ app.listen(port, () => {
 
 app.use(express.json());
 
-app.post('/getFullReport', async (req, res) => {
-  try {
-    const userResponseData = req.body;
-
-    // Save the user's response to the database
-    const userResponse = await userResponseRepository.saveUserResponse(userResponseData);
-
-    // Generate a report based on the saved response
-    const report = await run(userResponse);
-    res.send(report);
-  } catch (error) {
-    console.error('Error submitting user response:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
-
 // Access your API key as an environment variable 
 // const genAI = new GoogleGenerativeAI(process.env.GEN_AI_API_KEY);
 // const GEN_AI_API_KEY = "AIzaSyBfsecoQihitldvOag07uU5d5rwMmdVEUo"; // Hard-coded API key
