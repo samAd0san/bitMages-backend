@@ -159,7 +159,9 @@ app.use(express.json());
 const dbConnect = process.env.dbConStr || 'mongodb+srv://admin:admin@samadscluster.a4s9jvf.mongodb.net/';
 mongoose.connect(dbConnect);
 
+app.use(homeRoutes);
+
+app.use(tokenAuth);
+
 app.use(userRoutes);
 app.use(userResponseRoutes);
-// app.use(tokenAuth);
-app.use(homeRoutes);
