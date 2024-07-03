@@ -160,8 +160,8 @@ const dbConnect = process.env.dbConStr || 'mongodb+srv://admin:admin@samadsclust
 mongoose.connect(dbConnect);
 
 app.use(homeRoutes);
+app.use(userRoutes);
 
 app.use(tokenAuth);
 
-app.use(userRoutes);
 app.use(userResponseRoutes);
