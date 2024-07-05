@@ -16,13 +16,8 @@ require("dotenv").config();
 
 const cors = require("cors");
 const app = express();
-// app.use(cors());
-app.use(
-    cors({
-        origin: ['http://localhost:3000','http://localhost:3001','http://localhost:3002','http://localhost:5173'],  // Replace with your frontend domain
-        // credentials: true,
-      })
-)
+app.use(cors());
+
 const port = 3000;
 app.listen(port, () => {
   console.log(`The server is running on http://localhost:${port}`);
