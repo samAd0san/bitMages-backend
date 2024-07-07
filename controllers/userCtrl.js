@@ -82,7 +82,32 @@ const signin = async(req,res) => {
     }
 }
 
+const getUserProfile = async (req, res) => {
+    try {
+        const email = req.params.email;
+        const user = await UserRepo.getUserByEmail(email);
+
+        if (user) {
+            res.status(200).json({
+                firstName: user.firstName,
+                lastName: user.lastName,
+                email: user.email,
+                role: user.role,  // Added to demonstrate including more fields
+            });
+        } else {
+            res.status(404).send('User not found');
+        }
+    } catch (error) {
+        logger.error({
+            location: 'userCtrl - getUserProfile',
+            error: error,
+        });
+        res.status(500).send('Internal Server Error');
+    }
+};
+
 module.exports = {
     signup,
     signin,
+    getUserProfile,
 };
